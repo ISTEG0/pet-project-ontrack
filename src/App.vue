@@ -2,7 +2,11 @@
 import { CheckCircleIcon } from '@heroicons/vue/24/solid'
 import { ClockIcon, ListBulletIcon, ChartBarIcon } from '@heroicons/vue/24/outline'
 
-const navItems = ['timeline', 'activities', 'progress']
+const navItems = {
+  timeline: ClockIcon,
+  activities: ListBulletIcon,
+  progress: ChartBarIcon
+}
 </script>
 <template>
   <header class="sticky top-0 z-20 flex items-center justify-between border-b bg-white p-3">
@@ -23,11 +27,9 @@ const navItems = ['timeline', 'activities', 'progress']
   <main class="flex flex-grow flex-col"></main>
   <nav class="sticky bottom-0 z-10 bg-white">
     <ul class="flex items-center justify-around border-t">
-      <li v-for="page in navItems" :key="page" class="flex-1">
+      <li v-for="icon, page in navItems" :key="page" class="flex-1">
         <a v-bind:href="`#${page}`" class="flex flex-col items-center p-2 text-xs capitalize">
-          <ClockIcon v-if="page === 'timeline'" class="h-6 w-6" />
-          <ListBulletIcon v-else-if="page === 'activities'" class="h-6 w-6" />
-          <ChartBarIcon v-else class="h-6 w-6" /> {{ page }}
+          <component v-bind:is="icon" class="h-6 w-6" /> {{ page }}
         </a>
       </li>
     </ul>
